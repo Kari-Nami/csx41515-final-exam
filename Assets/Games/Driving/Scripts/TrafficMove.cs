@@ -7,11 +7,12 @@ namespace ThreeInOne.Games.Driving
 
 public class TrafficMove : MonoBehaviour
 {
+    [Tooltip("Forward movement speed in world units per second.")]
     public float speed = 10.0f;
-    
+
     void Update()
     {
-        transform.Translate(0, 0, speed);
+        transform.Translate(Vector3.forward * (speed * Time.deltaTime), Space.Self);
     }
 }
 
