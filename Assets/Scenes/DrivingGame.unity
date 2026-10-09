@@ -1346,7 +1346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fbcd6791a3e5994f83e6ccbc59a2c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 60
+  speed: 20
 --- !u!4 &607529571 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 417704, guid: 68840c673a0b18e41a044ed077548d55, type: 3}
@@ -2408,7 +2408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fbcd6791a3e5994f83e6ccbc59a2c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 60
+  speed: 20
 --- !u!54 &1185385062
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3950,7 +3950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fbcd6791a3e5994f83e6ccbc59a2c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 60
+  speed: 20
 --- !u!1001 &1940425294
 PrefabInstance:
   m_ObjectHideFlags: 0
