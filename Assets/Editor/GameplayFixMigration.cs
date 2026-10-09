@@ -35,6 +35,7 @@ namespace ThreeInOne.EditorTools
                 throw new InvalidOperationException("No TrafficMove components were found in the driving scene.");
             }
 
+            var migratedCount = 0;
             foreach (var vehicle in traffic)
             {
                 // The original values represented units per rendered frame. At the
@@ -44,6 +45,7 @@ namespace ThreeInOne.EditorTools
                 {
                     vehicle.speed *= OriginalReferenceFrameRate;
                     EditorUtility.SetDirty(vehicle);
+                    migratedCount++;
                 }
 
                 if (vehicle.speed <= 1.0f)
@@ -52,9 +54,13 @@ namespace ThreeInOne.EditorTools
                 }
             }
 
-            EditorSceneManager.MarkSceneDirty(scene);
-            EditorSceneManager.SaveScene(scene);
-            Debug.Log($"GAMEPLAY_FIX_AUDIT Migrated {traffic.Length} traffic vehicles to units per second.");
+            if (migratedCount > 0)
+            {
+                EditorSceneManager.MarkSceneDirty(scene);
+                EditorSceneManager.SaveScene(scene);
+            }
+
+            Debug.Log($"GAMEPLAY_FIX_AUDIT Validated {traffic.Length} traffic vehicles; migrated {migratedCount} values.");
         }
 
         private static void AuditFlyingController()
@@ -70,16 +76,14 @@ namespace ThreeInOne.EditorTools
             }
 
             var serializedController = new SerializedObject(controllers[0]);
-            var maxPitch = serializedController.FindProperty("maxPitch").floatValue;
-            var autoLevelSpeed = serializedController.FindProperty("autoLevelSpeed").floatValue;
             var inputDeadZone = serializedController.FindProperty("inputDeadZone").floatValue;
 
-            if (maxPitch <= 0.0f || autoLevelSpeed <= 0.0f || inputDeadZone < 0.0f)
+            if (inputDeadZone < 0.0f)
             {
-                throw new InvalidOperationException("Flying auto-level settings are invalid.");
+                throw new InvalidOperationException("Flying input dead zone is invalid.");
             }
 
-            Debug.Log($"GAMEPLAY_FIX_AUDIT Flying controller: maxPitch={maxPitch}, autoLevelSpeed={autoLevelSpeed}, deadZone={inputDeadZone}.");
+            Debug.Log($"GAMEPLAY_FIX_AUDIT Flying controller allows unrestricted pitch with deadZone={inputDeadZone}.");
         }
     }
 }
