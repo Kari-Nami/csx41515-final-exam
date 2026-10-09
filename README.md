@@ -26,4 +26,4 @@ Launch the project into **Main Menu**, select one of the three games, and press 
 
 ## Author
 
-**Name:** `<your name here>`
+**Name:** Ekaterina Kazakova
